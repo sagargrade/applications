@@ -15,12 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class InventoryServiceApplicationTests {
 
 	@ServiceConnection
-	private static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.3.0");
+	private static MySQLContainer<?> mySQLContainer;
 
 	@LocalServerPort
 	private int port;
 
 	static {
+		mySQLContainer = new MySQLContainer<>("mysql:8.3.0");
 		mySQLContainer.start();
 	}
 

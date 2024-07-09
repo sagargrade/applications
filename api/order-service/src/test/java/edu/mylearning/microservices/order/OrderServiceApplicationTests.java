@@ -1,39 +1,34 @@
 package edu.mylearning.microservices.order;
 
+import edu.mylearning.microservices.order.stub.InventoryClientStub;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.testcontainers.containers.MySQLContainer;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class OrderServiceApplicationTest {
+@AutoConfigureWireMock(port = 0)
+class OrderServiceApplicationTests {
 
     @ServiceConnection
-    static MySQLContainer mySQLContainer = new MySQLContainer("mysql:8.3.0");
+    static final MySQLContainer MY_SQL_CONTAINER;
     @LocalServerPort
     private Integer port;
 
-    @BeforeEach
-    void setUp() {
-        RestAssured.baseURI = "http://localhost";
-        RestAssured.port = port;
+    static {
+        MY_SQL_CONTAINER = new MySQLContainer("mysql:8.3.0");
+        MY_SQL_CONTAINER.start();
     }
 
-    static {
-        mySQLContainer.start();
+    @BeforeEach
+    void setUp(){
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = port;
     }
 
     @Test
@@ -45,11 +40,7 @@ class OrderServiceApplicationTest {
                     "quantity" : 1
                 }
                 """;
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        InventoryClientStub.stubInventoryCall("Lava_Z6", 1);
         RestAssured.given()
                 .contentType("application/json")
                 .body(requestBody)

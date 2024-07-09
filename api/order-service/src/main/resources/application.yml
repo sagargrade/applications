@@ -10,3 +10,7 @@ spring:
       ddl-auto: none
 server:
   port: 8081
+application:
+  inventory:
+    service:
+      url: http://localhost:8082

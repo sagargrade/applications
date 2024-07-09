@@ -24,23 +24,43 @@ repositories {
 }
 
 dependencies {
+	//Spring Dependencies
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//OpenFiegn - For Synchronous Communication B/W services
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	//Flyway for Database Migrations and Versioning of changes
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-mysql'
-	compileOnly 'org.projectlombok:lombok'
+	//Database - MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	//Lombok
+	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
+	//MapStruct
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
+	//Test Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//TestContainer - To create test docker container while running integration tests
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:mysql'
+	//RestAssured - To test rest services
 	testImplementation 'io.rest-assured:rest-assured:5.3.2'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+ext {
+	set('springCloudVersion', "2023.0.2")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 tasks.named('test') {

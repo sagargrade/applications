@@ -1,4 +1,4 @@
-package edu.mylearning.microservices.order.controller;
+package edu.mylearning.microservices.order.api.controller;
 
 import edu.mylearning.microservices.order.bo.OrderBO;
 import edu.mylearning.microservices.order.service.OrderService;
