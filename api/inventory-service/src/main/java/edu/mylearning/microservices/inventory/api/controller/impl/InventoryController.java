@@ -1,5 +1,6 @@
-package edu.mylearning.microservices.inventory.controller;
+package edu.mylearning.microservices.inventory.api.controller.impl;
 
+import edu.mylearning.microservices.inventory.api.controller.InventoryAPIDefinition;
 import edu.mylearning.microservices.inventory.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/inventory")
 @RequiredArgsConstructor
-public class InventoryController {
+public class InventoryController implements InventoryAPIDefinition {
 
     private final InventoryService inventoryService;
 

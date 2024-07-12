@@ -24,17 +24,27 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// Spring Dependencies
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// Flyway for Database Migrations and Versioning of changes
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-mysql'
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+	// Database - MYSQL
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	// Spring DOC - swagger-ui and json api doc generation
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.5.0'
+	// Spring Test Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// TestContainer - To create test docker container while running integration tests
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:mysql'
+	// RestAssured - To test rest services
 	testImplementation 'io.rest-assured:rest-assured:5.3.2'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

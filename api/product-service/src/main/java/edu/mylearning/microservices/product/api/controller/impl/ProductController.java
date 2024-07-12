@@ -1,5 +1,6 @@
-package edu.mylearning.microservices.product.controller;
+package edu.mylearning.microservices.product.api.controller.impl;
 
+import edu.mylearning.microservices.product.api.controller.ProductAPIDefinition;
 import edu.mylearning.microservices.product.bo.ProductBO;
 import edu.mylearning.microservices.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
-public class ProductController {
+public class ProductController implements ProductAPIDefinition {
 
     private final ProductService productService;
 
