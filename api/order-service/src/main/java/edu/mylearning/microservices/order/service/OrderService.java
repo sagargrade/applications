@@ -9,6 +9,9 @@ import edu.mylearning.microservices.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -20,6 +23,8 @@ public class OrderService {
     public OrderBO placeOrder(OrderBO orderBO){
         if (inventoryClient.isInStock(orderBO.getStockUnitCode(), orderBO.getQuantity())){
             Order order = orderBOMapper.toEntity(orderBO);
+            order.setOrderNumber(UUID.randomUUID().toString());
+            order.setPrice(order.getPrice().multiply(BigDecimal.valueOf(order.getQuantity())));
             Order savedOrder = orderRepository.save(order);
             return orderBOMapper.toBO(savedOrder);
         } else {
