@@ -43,6 +43,10 @@ dependencies {
 	// Spring DOC - swagger-ui and json api doc generation
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.5.0'
+	// Spring Boot Application Health Monitoring
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	// Circuit Breaker Pattern to have resilience in services
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 	//Test Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//TestContainer - To create test docker container while running integration tests
