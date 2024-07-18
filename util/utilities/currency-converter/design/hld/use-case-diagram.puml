@@ -1,0 +1,12 @@
+@startuml Currency Converter User Case Diagram
+left to right direction
+
+actor User
+
+package "Currency Converter" {
+    usecase "Convert Currency" as convert_currency
+}
+
+User -- convert_currency
+
+@enduml

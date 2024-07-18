@@ -1,0 +1,66 @@
+@startuml Currency Convert Class Diagram
+
+package currency {
+
+    interface Currency {
+        + getCode(): string
+        + getSymbol(): string
+    }
+
+    class USDCurrency {
+        + getCode(): string
+        + getSymbol(): string
+
+    }
+
+    class INRCurrency {
+        + getCode(): string
+        + getSymbol(): string
+
+    }
+
+    Currency <|-- USDCurrency
+    Currency <|-- INRCurrency
+}
+
+package converter {
+
+    interface CurrencyConverter  {
+        + convert(Currency source, Currency target, double amount): double
+    }
+
+    class SimpleCurrencyConverter {
+         - exchangeRateProvider: ExchangeRateProvider
+         + convert(Currency source, Currency target, double amount): double
+    }
+
+    CurrencyConverter <|-- SimpleCurrencyConverter
+
+}
+
+package exchange {
+
+    interface ExchangeRateProvider {
+        + getRate(Currency source, Currency target): double
+    }
+
+    class SimpleExchangeRateProvider {
+        - rates: Map<String, Double>
+        + getInstance(): SimpleExchangeRateProvider
+        + getRate(Currency source, Currency target): double
+    }
+
+    ExchangeRateProvider <|-- SimpleExchangeRateProvider
+}
+
+package cli {
+    class CurrencyConverterCLI {
+       - currencyConverter : CurrencyConverter
+       - getCurrency(String code): Currency
+       + start(): void
+    }
+}
+
+SimpleCurrencyConverter ..> ExchangeRateProvider
+CurrencyConverterCLI ..> CurrencyConverter
+@enduml

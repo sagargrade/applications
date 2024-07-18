@@ -1,0 +1,21 @@
+@startuml Currency Converter Sequence Diagram
+
+User -> CurrencyConverterCLI : start()
+User <- CurrencyConverterCLI : Enter Amount
+User -> CurrencyConverterCLI : <<provide amount>>
+User <- CurrencyConverterCLI : Enter Source Currency
+User -> CurrencyConverterCLI : <<provide currency>>
+User <- CurrencyConverterCLI : Enter Target Currency
+User -> CurrencyConverterCLI : <<provide currency>>
+
+CurrencyConverterCLI -> CurrencyConverterCLI : getCurrency(source)
+CurrencyConverterCLI -> CurrencyConverterCLI : getCurrency(target)
+CurrencyConverterCLI -> SimpleCurrencyConverter : convert(source, target, amount)
+
+SimpleCurrencyConverter -> SimpleExchangeRateProvider : getRate(source, target)
+SimpleCurrencyConverter <- SimpleExchangeRateProvider : <<exchange rate>>
+
+CurrencyConverterCLI <- SimpleCurrencyConverter : <<provide converted amount>>
+User <- CurrencyConverterCLI : <<display result>>
+
+@enduml
