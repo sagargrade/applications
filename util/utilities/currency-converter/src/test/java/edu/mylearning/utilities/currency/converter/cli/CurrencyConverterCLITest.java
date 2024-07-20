@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +28,7 @@ class CurrencyConverterCLITest {
 
     @Test
     @DisplayName("should convert the amount entered and show result")
-    public void testStart() throws UnsupportedEncodingException {
+    public void testStart() {
         //arrange
         // Simulate user input
         String input = "100\nUSD\nINR";
@@ -36,7 +36,7 @@ class CurrencyConverterCLITest {
         System.setIn(byteArrayInputStream);
         // Capture the output
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream, true, "UTF-8"));
+        System.setOut(new PrintStream(byteArrayOutputStream));
 
         when(currencyConverter.convert(any(), any(), anyDouble())).thenReturn(7485.0);
         String expectedOutput = "Enter amount : \nEnter source currency code (e.g., USD) : \nEnter target currency code (e.g., INR) : \nConverted amount : 7485.0 ₹\n";
@@ -44,7 +44,7 @@ class CurrencyConverterCLITest {
         expectedOutput = expectedOutput.replaceAll("\\s+", " ").trim();
         //act
         currencyConverterCLI.start();
-        String actualOutput = byteArrayOutputStream.toString("UTF-8");
+        String actualOutput = byteArrayOutputStream.toString();
         // Normalize whitespace and line endings
         actualOutput = actualOutput.replaceAll("\\s+", " ").trim();
         //assert
