@@ -13,6 +13,6 @@ public class SimpleCurrencyConverter implements CurrencyConverter{
     @Override
     public double convert(Currency source, Currency target, double amount) {
         double rate = exchangeRateProvider.getRate(source, target);
-        return amount * rate;
+        return Math.round(amount * rate);
     }
 }

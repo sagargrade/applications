@@ -8,7 +8,7 @@ import edu.mylearning.utilities.currency.converter.exchange.SimpleExchangeRatePr
 
 public class Client {
     public static void main(String[] args) {
-        ExchangeRateProvider rateProvider = SimpleExchangeRateProvider.getInstance();
+        ExchangeRateProvider rateProvider = new SimpleExchangeRateProvider();
         CurrencyConverter currencyConverter = new SimpleCurrencyConverter(rateProvider);
         CurrencyConverterCLI cli = new CurrencyConverterCLI(currencyConverter);
         cli.start();

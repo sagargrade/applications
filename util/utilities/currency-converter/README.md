@@ -41,4 +41,3 @@ Basic Java Project to convert currency from one to another
    ```
 2. Strategy Pattern : The CurrencyConverter interface and its implementation (SimpleCurrencyConverter) demonstrate the Strategy Pattern. Different conversion strategies can be implemented by creating new classes that implement the CurrencyConverter interface.
 3. Dependency Injection : Dependency Injection is demonstrated in the constructor of the SimpleCurrencyConverter and CurrencyConverterCLI classes. Dependencies (ExchangeRateProvider and CurrencyConverter) are injected into the classes, promoting loose coupling and enhancing testability.
-4. Singleton Pattern : SimpleExchangeRateProvider is implemented with singleton design pattern as there can only be one instance for exchange rate.

@@ -7,19 +7,11 @@ import java.util.Map;
 
 public class SimpleExchangeRateProvider implements ExchangeRateProvider{
 
-    private static SimpleExchangeRateProvider instance;
     private final Map<String, Double> rates = new HashMap<>();
 
-    private SimpleExchangeRateProvider() {
+    public SimpleExchangeRateProvider() {
         this.rates.put("USD-INR", 74.85);
         this.rates.put("INR-USD", 0.013);
-    }
-
-    public static SimpleExchangeRateProvider getInstance(){
-        if (instance == null){
-            instance = new SimpleExchangeRateProvider();
-        }
-        return instance;
     }
 
     @Override
